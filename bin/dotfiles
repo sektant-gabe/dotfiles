@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source $DOTFILES_PATH/bin/dotfiles-sub/header.sh
+source $DOTFILES_PATH/bin/dotfiles-sub/menu.sh
