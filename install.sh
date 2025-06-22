@@ -36,3 +36,30 @@ else
   echo -e "\033[1;35mOnly installing terminal tools...\033[0m"
   source ~/.dotfiles/install/terminal.sh
 fi
+
+#!/bin/bash
+
+function ask() {
+  read -p "$1 (Y/n): " response
+  [ -z "$response" ] || [ "$response" = "y" ]
+}
+
+for file in bash/*; do
+  fullpath=$(realpath $file)
+  if ask "Source ${file}?"; then
+    echo "source $fullpath" >>~/.bashrc
+  fi
+done
+
+if ask "Create & source ssh_aliases?"; then
+  if [ ! -f ~/.ssh_aliases ]; then
+    touch ~/.ssh_aliases
+  fi
+  echo "source ~/.ssh_aliases" >>~/.bashrc
+fi
+
+for file in ".vimrc" ".tmux.conf"; do
+  if ask "Install ${file}?"; then
+    ln -s "$(realpath "$file")" ~/${file}
+  fi
+done
