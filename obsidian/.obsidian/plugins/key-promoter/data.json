@@ -1,0 +1,20 @@
+{
+  "showUnassigned": true,
+  "showAssigned": true,
+  "threshold": 0,
+  "notificationTimeout": 5,
+  "template": "`{{commandId}}` - {{commandName}} - `{{hotkey}}`\n",
+  "descriptionOfActions": false,
+  "mouseStatistics": {
+    "insert-template": 1,
+    "file-explorer:new-folder": 1,
+    "file-explorer:new-file": 1,
+    "file-explorer:new-file-in-current-tab": 1,
+    "app:delete-file": 1,
+    "editor:delete-paragraph": 1,
+    "editor:table-row-delete": 1,
+    "editor:table-col-delete": 1,
+    "obsidian-excalidraw-plugin:delete-file": 1
+  },
+  "keyboardStatistics": {}
+}

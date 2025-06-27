@@ -1,0 +1,12 @@
+{
+  "cssTheme": "Tokyo Night",
+  "interfaceFontFamily": "Inter",
+  "textFontFamily": "Inter",
+  "monospaceFontFamily": "Source Code Pro",
+  "baseFontSize": 18,
+  "baseFontSizeAction": true,
+  "showRibbon": true,
+  "showViewHeader": false,
+  "nativeMenus": false,
+  "accentColor": "#0698f9"
+}
