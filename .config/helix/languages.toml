@@ -1,0 +1,38 @@
+[[language]]
+name = "cpp"
+roots = ["CMakeLists.txt", "Makefile"]
+indent = { tab-width = 4, unit = " " }
+language-servers = ["clangd"]
+auto-format = true
+file-types = ["cpp", "h", "hpp"]
+formatter = { command = "clang-format" }
+comment-token = "//"
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
+auto-format = true
+roots = ["."]
+language-servers = ["taplo"]
+
+[[language]]
+name = "yaml"
+formatter = { command = "prettier" }
+auto-format = true
+
+[[language]]
+name = "dockerfile"
+file-types = ["Dockerfile", "Dockerfile.lambda"]
+auto-format = true
+
+[[language]]
+name = "markdown"
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
+auto-format = true
+
+# --------------------------- SERVERS ----------------------------------------
+
+
+[language-server.clangd]
+command = "clangd"
+args = ["--compile-commands-dir=build"]

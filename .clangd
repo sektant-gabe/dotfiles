@@ -1,0 +1,6 @@
+CompileFlags: # Tweak the parse settings
+Add: -I/opt/homebrew/lib
+     -I/opt/homebrew/include
+     -I/Library/Developer/CommandLineTools/usr/include
+     -I/Library/Developer/CommandLineTools/usr/lib
+     -I/Library/Developer/CommandLineTools/usr/bin

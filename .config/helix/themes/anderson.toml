@@ -1,0 +1,22 @@
+theme = "anderson"
+
+[palette]
+black         = "#363432"
+red           = "#be503e"
+green         = "#7bb292"
+yellow        = "#d7ae38"
+blue          = "#628b97"
+magenta       = "#c7a095"
+cyan          = "#88a2a4"
+white         = "#c5beba"
+light_black   = "#645d59"
+light_red     = "#f0a4af"
+light_green   = "#9ad1bc"
+light_yellow  = "#c4c18b"
+light_blue    = "#bad4f5"
+light_magenta = "#e7c6be"
+light_cyan    = "#a8c1c5"
+light_white   = "#c5beba"
+
+"ui.background" = "black"
+"ui.text"       = "white"

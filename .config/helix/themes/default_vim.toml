@@ -1,0 +1,22 @@
+theme = "default_vim"
+
+[palette]
+black         = "#000000"
+red           = "#ff0000"
+green         = "#00ff00"
+yellow        = "#ffff00"
+blue          = "#0000ff"
+magenta       = "#ff00ff"
+cyan          = "#00ffff"
+white         = "#ffffff"
+light_black   = "#808080"
+light_red     = "#ff8080"
+light_green   = "#80ff80"
+light_yellow  = "#ffff80"
+light_blue    = "#8080ff"
+light_magenta = "#ff80ff"
+light_cyan    = "#80ffff"
+light_white   = "#f0f0f0"
+
+"ui.background" = "black"
+"ui.text"       = "white"

@@ -1,0 +1,22 @@
+theme = "evening"
+
+[palette]
+black         = "#000000"
+red           = "#cd5c5c"
+green         = "#6b8e23"
+yellow        = "#daa520"
+blue          = "#4682b4"
+magenta       = "#9370db"
+cyan          = "#20b2aa"
+white         = "#dcdcdc"
+light_black   = "#404040"
+light_red     = "#ee6363"
+light_green   = "#9acd32"
+light_yellow  = "#ffd700"
+light_blue    = "#87ceeb"
+light_magenta = "#ba55d3"
+light_cyan    = "#40e0d0"
+light_white   = "#ffffff"
+
+"ui.background" = "black"
+"ui.text"       = "white"

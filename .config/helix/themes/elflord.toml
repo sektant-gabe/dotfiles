@@ -1,0 +1,97 @@
+# Author : Ron Aaron <ron@ronware.org>
+# License: Same as Vim
+name = "elflord"
+
+# Core editor
+normal = { fg = "#00ffff", bg = "#000000" }
+cursor = { fg = "#000000", bg = "#00ffff" }
+cursor_line = { bg = "#3a3a3a" }
+cursor_column = { bg = "#3a3a3a" }
+line_number = { fg = "#ffff00" }
+line_number_current = { fg = "#ffff00", modifiers = ["bold"] }
+gutter = { fg = "#00ffff" }
+
+# Basic syntax (mapped to Vim elflord colors)
+comment = { fg = "#80a0ff" }
+constant = { fg = "#ff00ff" }
+string = { fg = "#ff00ff" }
+number = { fg = "#ff00ff" }
+boolean = { fg = "#ff00ff" }
+identifier = { fg = "#00ffff" }
+function = { fg = "#ffffff" }
+keyword = { fg = "#ff0000" }
+statement = { fg = "#aa4444", modifiers = ["bold"] }
+preproc = { fg = "#ff80ff" }
+type = { fg = "#60ff60", modifiers = ["bold"] }
+operator = { fg = "#ff0000" }
+punctuation = { fg = "#00ffff" }
+special = { fg = "#ff0000" }
+
+# Popup / menus (Pmenu / wildmenu)
+popup = { fg = "#ffffff", bg = "#444444" }
+"popup.selection" = { fg = "#000000", bg = "#00cdcd" }
+"popup.match" = { fg = "#ff00ff", bg = "#444444", modifiers = ["bold"] }
+menu = { fg = "#ffffff", bg = "#444444" }
+
+# Search / matches
+search = { fg = "#000000", bg = "#ffff00" }
+incsearch = { fg = "#000000", bg = "#000000" }
+matchparen = { bg = "#008b8b" }
+
+# Status / tabs
+status = { fg = "#000000", bg = "#00ffff", modifiers = ["bold"] }
+status_inactive = { fg = "#000000", bg = "#00cdcd" }
+tab_line = { fg = "#000000", bg = "#008b8b" }
+tab_line_sel = { fg = "#00ffff", bg = "#000000", modifiers = ["bold"] }
+tab_line_fill = { bg = "#000000", modifiers = ["reverse"] }
+
+# Diff
+"diff.add" = { fg = "#ffffff", bg = "#5f875f" }
+"diff.change" = { fg = "#ffffff", bg = "#5f87af" }
+"diff.delete" = { fg = "#ffffff", bg = "#af5faf" }
+"diff.text" = { fg = "#000000", bg = "#c6c6c6" }
+
+# Visual / selection
+visual = { fg = "#000000", bg = "#a9a9a9" }
+visual_nos = { fg = "#000000", bg = "#000000", modifiers = ["bold","underline"] }
+
+# Folding / signs
+folded = { fg = "#00ffff", bg = "#000000" }
+foldcolumn = { fg = "#00ffff" }
+sign_column = { fg = "#00ffff" }
+
+# UI misc
+title = { fg = "#ff00ff", modifiers = ["bold"] }
+directory = { fg = "#00ffff" }
+conceal = { fg = "#666666" }
+error = { fg = "#ffffff", bg = "#ff0000" }
+error_msg = { fg = "#ffffff", bg = "#cd0000" }
+warning = { fg = "#ff0000" }
+todo = { fg = "#0000ff", bg = "#ffff00" }
+
+# Spell / underlines
+"spell.bad" = { fg = "#ff0000", modifiers = ["underline"] }
+"spell.cap" = { fg = "#0000ff", modifiers = ["underline"] }
+"spell.local" = { fg = "#ffff00", modifiers = ["underline"] }
+"spell.rare" = { fg = "#ff00ff", modifiers = ["underline"] }
+
+# Completion menu details (pmenu)
+"pmenu" = { fg = "#ffffff", bg = "#444444" }
+"pmenu.match" = { fg = "#ff00ff", bg = "#444444", modifiers = ["bold"] }
+"pmenu.match.selection" = { fg = "#ff00ff", bg = "#00cdcd", modifiers = ["bold"] }
+"pmenu.selection" = { fg = "#000000", bg = "#00cdcd" }
+
+# Other common groups from elflord
+color_column = { bg = "#cd0000" }
+nontext = { fg = "#0000ff", modifiers = ["bold"] }
+operator = { fg = "#ff0000" }
+underlined = { fg = "#80a0ff", modifiers = ["underline"] }
+more_msg = { fg = "#2e8b57", modifiers = ["bold"] }
+mode_msg = { modifiers = ["bold"] }
+question = { fg = "#00ff00", modifiers = ["bold"] }
+quickfixline = { fg = "#ffffff", bg = "#5f875f" }
+repeat = { fg = "#ffffff" }
+
+# Terminal / fallback
+terminal = { fg = "#00ffff", bg = "#000000" }
+selection = { fg = "#000000", bg = "#a9a9a9" }

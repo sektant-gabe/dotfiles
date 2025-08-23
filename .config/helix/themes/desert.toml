@@ -1,0 +1,22 @@
+theme = "desert"
+
+[palette]
+black         = "#000000"
+red           = "#ff5555"
+green         = "#55ff55"
+yellow        = "#ffff55"
+blue          = "#5555ff"
+magenta       = "#ff55ff"
+cyan          = "#55ffff"
+white         = "#bbbbbb"
+light_black   = "#555555"
+light_red     = "#ff8888"
+light_green   = "#88ff88"
+light_yellow  = "#ffff88"
+light_blue    = "#8888ff"
+light_magenta = "#ff88ff"
+light_cyan    = "#88ffff"
+light_white   = "#ffffff"
+
+"ui.background" = "black"
+"ui.text"       = "white"

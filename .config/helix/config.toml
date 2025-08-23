@@ -1,0 +1,171 @@
+theme = "tokyonight_moon"
+
+
+[editor]
+scrolloff = 9
+mouse = true
+default-yank-register = '+'
+line-number = "relative"
+cursorline = false
+cursorcolumn = false
+auto-completion = true
+auto-format = true
+preview-completion-insert = true
+bufferline = "always"
+color-modes = true
+insert-final-newline = true
+auto-pairs = true
+trim-final-newlines = true
+trim-trailing-whitespace = true
+end-of-line-diagnostics = "hint"
+editor-config = true
+
+[editor.statusline]
+left = [
+  "mode",
+  "spacer",
+  "diagnostics",
+  "version-control",
+  "file-modification-indicator",
+  "read-only-indicator",
+  "spinner",
+]
+center = ["file-name"]
+right = ["spinner", "workspace-diagnostics", "position-percentage", "spacer"]
+separator = "|"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+enable = true
+display-messages = true
+display-progress-messages = true
+auto-signature-help = true
+display-inlay-hints = false
+snippets = true
+
+[editor.cursor-shape]
+insert = "block"
+normal = "block"
+select = "block"
+
+[editor.file-picker]
+hidden = false
+parents = false
+
+[editor.auto-save]
+focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 30000 # 1 min after last edit
+
+[editor.search]
+smart-case = true
+wrap-around = true
+
+[editor.whitespace.render]
+space = "none"
+tab = "none"
+nbsp = "all"
+nnbsp = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+tab = "→"
+newline = "⏎"
+tabpad = "·"  # Tabs will look like "→···" (depending on tab width)
+
+[editor.indent-guides]
+render = true
+character = "╎" # "┊", "┆" "⸽" "╎"
+skip-levels = 1
+
+[editor.gutters]
+layout = ["diff", "line-numbers", "diagnostics"]
+[editor.gutters.line-numbers]
+min-width = 1
+
+[editor.soft-wrap]
+enable = true
+
+[editor.smart-tab]
+enable = false
+supersede-menu = false
+
+[editor.inline-diagnostics]
+cursor-line = "error"
+other-lines = "disable"
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+A-x = "extend_to_line_bounds"
+X = "select_line_above"
+G = "goto_file_end"
+C-s = ":write"
+A-w = ":buffer-close"
+D = ["select_mode", "goto_line_end", "change_selection"]
+a = ["append_mode", "collapse_selection"]
+C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+
+[keys.normal.space]
+#w = ":w"
+q = ":buffer-close!"
+M = ":sh make setup" # Build project
+m = ":sh make"       # Make Project
+#"." = "file_picker_in_current_buffer_directory"
+l = ":toggle lsp.display-inlay-hints"
+r = "rename_symbol"
+tab = ":buffer-next"
+S-tab = ":buffer-previous"
+#B = ":run-shell-command make build"
+C-r = ":config-reload"
+C-o = ":config-open"
+#g = ":run-shell-command lazygit"
+C-A-9 = ":theme acme"
+C-A-0 = ":theme tokyonight_moon"
+
+[keys.insert]
+C-s = ["normal_mode", ":write", "insert_mode"]
+A-s = "commit_undo_checkpoint"
+C-j = "move_char_left"
+C-l = "move_char_right"
+# Duplicate lines up/down
+# https://github.com/helix-editor/helix/issues/3680#issuecomment-1399443274
+S-A-j = [
+  "normal_mode",
+  "extend_to_line_bounds",
+  "yank",
+  "open_below",
+  "replace_with_yanked",
+  "collapse_selection",
+]
+S-A-k = [
+  "normal_mode",
+  "extend_to_line_bounds",
+  "yank",
+  "open_above",
+  "replace_with_yanked",
+  "collapse_selection",
+]
+
+[keys.select]
+A-x = "extend_to_line_bounds"
+X = "select_line_above"
+A-k = [
+  "goto_line_end",
+  "extend_line_below",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+  "select_mode",
+]
+A-j = [
+  "goto_line_end",
+  "extend_line_below",
+  "delete_selection",
+  "paste_after",
+  "select_mode",
+]

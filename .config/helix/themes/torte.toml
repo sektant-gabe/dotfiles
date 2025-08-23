@@ -1,0 +1,22 @@
+theme = "torte"
+
+[palette]
+black         = "#000000"
+red           = "#ff0000"
+green         = "#00ff00"
+yellow        = "#ffff00"
+blue          = "#0000ff"
+magenta       = "#ff00ff"
+cyan          = "#00ffff"
+white         = "#e5e5e5"
+light_black   = "#444444"
+light_red     = "#ff6666"
+light_green   = "#66ff66"
+light_yellow  = "#ffff66"
+light_blue    = "#6666ff"
+light_magenta = "#ff66ff"
+light_cyan    = "#66ffff"
+light_white   = "#ffffff"
+
+"ui.background" = "black"
+"ui.text"       = "white"

@@ -1,0 +1,22 @@
+theme = "classic_dark2"
+
+[palette]
+black         = "#121212"
+red           = "#af0000"
+green         = "#5f8700"
+yellow        = "#af8700"
+blue          = "#005faf"
+magenta       = "#875faf"
+cyan          = "#008787"
+white         = "#bcbcbc"
+light_black   = "#303030"
+light_red     = "#d70000"
+light_green   = "#87af00"
+light_yellow  = "#d7af00"
+light_blue    = "#0087ff"
+light_magenta = "#af87ff"
+light_cyan    = "#00afaf"
+light_white   = "#e4e4e4"
+
+"ui.background" = "black"
+"ui.text"       = "white"
