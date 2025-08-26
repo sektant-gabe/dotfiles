@@ -4,8 +4,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Cursor settings
--- vim.opt.guicursor = 'n-v-c:block'
+-- Cursor settingsa
+vim.o.guicursor = 'n-v-c-i:block'
 -- Sync working directory with current file
 vim.o.autochdir = true
 
@@ -24,7 +24,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = 'a'
+-- vim.o.mouse = 'a'
 
 -- greatest remap ver
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -33,7 +33,7 @@ vim.keymap.set('x', '<leader>p', [["_dP]])
 vim.o.showmode = false
 vim.o.copyindent = true
 vim.o.textwidth = 100
-vim.o.autochdir = true
+vim.o.autochdir = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -117,25 +117,9 @@ keymap('', '<leader>cb', ':CMakeBuild<cr>', { desc = '[C]make [B]uild' })
 keymap('', '<leader>cq', ':CMakeClose<cr>', { desc = '[C]make Close' })
 keymap('', '<leader>cc', ':CMakeClean<cr>', { desc = '[C]make Clean' })
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list' })
+vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list' })
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = '[W]rite file' })
--------- undotree --------
--- F5 to show the undotrree
-vim.keymap.set('n', '<F4>', ':UndotreeToggle<cr>', { silent = true, desc = 'undotree' })
--- don't take up too much horizontal space
-vim.g.undotree_SplitWidth = 25
--- focus the undotree when displayed
-vim.g.undotree_SetFocusWhenToggle = 1
--- save horizontal space
-vim.g.undotree_ShortIndicators = 1
-
-vim.keymap.set('n', 'H', '^', { silent = true, desc = 'start of line' })
-vim.keymap.set('n', 'L', '$', { silent = true, desc = 'end of line' })
--- strain reduction
-vim.keymap.set('i', 'jj', '<Esc>', { silent = true, desc = 'exit insert mode' })
-vim.keymap.set('t', 'jj', '<C-\\><C-n>', { silent = true, desc = 'exit terminal' })
-vim.keymap.set('c', 'jj', '<Esc>', { silent = true, desc = 'exit command-line' })
-
+vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = '[Q]uit buffer' })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -145,10 +129,10 @@ vim.keymap.set('c', 'jj', '<Esc>', { silent = true, desc = 'exit command-line' }
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '')
+vim.keymap.set('n', '<right>', '')
+vim.keymap.set('n', '<up>', '')
+vim.keymap.set('n', '<down>', '')
 
 -- Open compiler
 vim.api.nvim_set_keymap('n', '<F5>', '<cmd>CompilerOpen<cr>', { noremap = true, silent = true })
@@ -193,7 +177,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -258,7 +241,27 @@ require('lazy').setup({
       },
     },
   },
-
+  {
+    'mvllow/modes.nvim',
+    event = 'VeryLazy',
+    opts = {
+      colors = {
+        bg = '#282c34', -- fallback to Normal highlight group
+        fg = '#bbc2cf',
+        copy = '#98be65',
+        normal = '#52afef',
+        delete = '#ff6c6b',
+        insert = '#da8548',
+        visual = '#c678dd',
+      },
+      line_opacity = 0,
+      set_cursor = true,
+      set_cursorline = false,
+      set_number = true,
+      set_signcolumn = true,
+      ignore = { 'NvimTree', 'TelescopePrompt', '!minifiles' },
+    },
+  },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -275,6 +278,7 @@ require('lazy').setup({
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
+    lazy = false,
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
   { -- Useful plugin to show you pending keybinds.
@@ -344,6 +348,7 @@ require('lazy').setup({
     event = 'VimEnter',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'andrew-george/telescope-themes',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
         'nvim-telescope/telescope-fzf-native.nvim',
 
@@ -387,7 +392,6 @@ require('lazy').setup({
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
-        --
         -- defaults = {
         --   mappings = {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
@@ -403,16 +407,17 @@ require('lazy').setup({
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('themes').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'ui-select')
-
       -- Splitting & Resizing
-      vim.keymap.set('n', '<leader>Sv', ':vsplit<CR>', { desc = 'Split window vertically' })
-      vim.keymap.set('n', '<leader>Sh', ':split<CR>', { desc = 'Split window horizontally' })
+      vim.keymap.set('n', '<leader>Sv', ':vsplit<CR>', { desc = '[S]plit window [v]ertically' })
+      vim.keymap.set('n', '<leader>Sh', ':split<CR>', { desc = '[S]plit window [h]orizontally' })
       vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { desc = 'Increase window height' })
       vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { desc = 'Decrease window height' })
       vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Decrease window width' })
       vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Increase window width' })
       -- Better indenting in visual mode
+
       vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
       vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
       -- Move lines up/down
@@ -433,12 +438,13 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
+      --vim.keymap.set('n', '<leader>st.', builtin.themes, { desc = '[S]earch [T]hemes' })
+      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Find existing buffers' })
+      vim.keymap.set('n', '<leader>st', ':Telescope themes<CR>', { noremap = true, silent = true, desc = '[S]earch [T]heme' })
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -479,7 +485,6 @@ require('lazy').setup({
   },
   { 'mg979/vim-visual-multi' },
   { 'honza/vim-snippets' },
-  { 'p00f/nvim-ts-rainbow' },
   {
     'Civitasv/cmake-tools.nvim',
     opts = {
@@ -644,7 +649,7 @@ require('lazy').setup({
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
         underline = { severity = vim.diagnostic.severity.ERROR },
-        signs = vim.g.have_nerd_font and {
+        signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = '󰅚 ',
             [vim.diagnostic.severity.WARN] = '󰀪 ',
@@ -750,6 +755,7 @@ require('lazy').setup({
       }
     end,
   },
+  { 'echasnovski/mini.tabline', version = false },
   { -- This plugin
     'Zeioth/compiler.nvim',
     cmd = { 'CompilerOpen', 'CompilerToggleResults', 'CompilerRedo' },
@@ -834,12 +840,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -879,7 +885,7 @@ require('lazy').setup({
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
+        nerd_font_variant = 'normal',
       },
 
       completion = {
@@ -913,45 +919,38 @@ require('lazy').setup({
   { 'EdenEast/nightfox.nvim' },
   { 'projekt0n/github-nvim-theme' },
   { 'plan9-for-vimspace/acme-colors' },
-  { 'yorik1984/newpaper.nvim' },
-  { 'folke/tokyonight.nvim' },
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
+  { 'agude/vim-eldar' },
+  { 'Abstract-IDE/Abstract-cs' },
+  { 'nyngwang/nvimgelion' },
+  { 'cwshugg/dwarrowdelf' },
+  -- { 'sektant-gabe/dwarrowdelf.nvim' },
+  { -- You can easily change to a different colordwarrowdelf
+    -- Change the name of the colorscheme pdwarrowdelfelow, and then
+    -- change the command in the config to whatever the name of that colorschdwarrowdelf
     --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorsdwarrowdelf
     'NTBBloodbath/doom-one.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    -- priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      -- Add color to cursor
-      vim.g.doom_one_cursor_coloring = true
       -- Set :terminal colors
       vim.g.doom_one_terminal_colors = true
       -- Enable italic comments
       vim.g.doom_one_italic_comments = false
       -- Enable TS support
       vim.g.doom_one_enable_treesitter = true
-      -- Color whole diagnostic text or only underline
-      vim.g.doom_one_diagnostics_text_color = false
-      vim.g.doom_one_transparent_background = true
       -- Plugins integration
       vim.g.doom_one_plugin_telescope = true
       vim.g.doom_one_plugin_neogit = true
       vim.g.doom_one_plugin_nvim_tree = true
-      vim.g.doom_one_plugin_dashboard = true
-      vim.g.doom_one_plugin_startify = true
       vim.g.doom_one_plugin_whichkey = true
       vim.g.doom_one_plugin_vim_illuminate = true
       vim.g.doom_one_plugin_lspsaga = true
       -- Enable transparent background
-
-      -- Load the colorscheme here.
+      vim.g.doom_one_transparent_background = true
+      vim.cmd.colorscheme 'doom-one'
+      -- Load the colorschemdwarrowdelf
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'doom-one'
-      --   vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      --   vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-      --   vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
     end,
   },
   -- Highlight todo, notes, etc in comments
@@ -968,6 +967,7 @@ require('lazy').setup({
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
+      require('mini.tabline').setup()
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
@@ -976,7 +976,7 @@ require('lazy').setup({
       require('mini.surround').setup()
 
       -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
+      -- You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
@@ -1041,10 +1041,9 @@ require('lazy').setup({
   --
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -1080,7 +1079,11 @@ require('lazy').setup({
     },
   },
 })
--- Basic autocommands
+-- vim.cmd.colorscheme 'nvimgelion'
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+--
 local augroup = vim.api.nvim_create_augroup('UserConfig', {})
 -- Set filetype-specific settings
 vim.api.nvim_create_autocmd('FileType', {
@@ -1252,3 +1255,33 @@ vim.keymap.set('t', '<Esc>', function()
     terminal_state.is_open = false
   end
 end, { noremap = true, silent = true, desc = 'Close floating terminal from terminal mode' })
+-- -- harpoon2 keybinds
+-- local harpoon = require 'harpoon'
+-- harpoon:setup()
+-- vim.keymap.set('n', '<leader>aa', function()
+--   harpoon:list():append()
+-- end)
+-- vim.keymap.set('n', '<leader><leader>', function()
+--   harpoon.ui:toggle_quick_menu(harpoon:list())
+-- end)
+-- vim.keymap.set('n', '<leader>1', function()
+--   harpoon:list():select(1)
+-- end)
+-- vim.keymap.set('n', '<leader>2', function()
+--   harpoon:list():select(2)
+-- end)
+-- vim.keymap.set('n', '<leader>3', function()
+--   harpoon:list():select(3)
+-- end)
+-- vim.keymap.set('n', '<leader>4', function()
+--   harpoon:list():select(4)
+-- end)
+-------- undotree --------
+vim.keymap.set('n', 'H', '^', { silent = true, desc = 'start of line' })
+vim.keymap.set('n', 'H', '^', { silent = true, desc = 'start of line' })
+vim.keymap.set('v', 'L', '$', { silent = true, desc = 'end of line' })
+vim.keymap.set('v', 'L', '$', { silent = true, desc = 'end of line' })
+-- strain reduction
+vim.keymap.set('i', 'jj', '<Esc>', { silent = true, desc = 'exit insert mode' })
+vim.keymap.set('t', 'jj', '<C-\\><C-n>', { silent = true, desc = 'exit terminal' })
+vim.keymap.set('c', 'jj', '<Esc>', { silent = true, desc = 'exit command-line' })
