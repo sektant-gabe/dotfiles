@@ -1,17 +1,21 @@
 [window]
 opacity = 0.8
 decorations = "None"
-dynamic_title = true
 option_as_alt = "Both"
 blur = false
 
 [font]
-size = 15.0
+size = 14.0
 normal = { family = "DankMono Nerd Font Mono", style = "Regular" }
 
 [window.padding]
-x = 3
-y = 3
+x = 4
+y = 4
 
 [colors.primary]
 background = '#000000'
+foreground = '#ffffff'
+
+[colors.cursor]
+text = '#000000'
+cursor = '#52afef'

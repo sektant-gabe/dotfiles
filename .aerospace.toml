@@ -89,7 +89,7 @@ cmd-shift-t = 'move-node-to-workspace t'
 
 alt-tab = 'workspace-back-and-forth'
 cmd-p = 'move-workspace-to-monitor --wrap-around next'
-cmd-shift-p = [
+cmd-shift-backslash = [
 'move-node-to-monitor --wrap-around next',
 'focus-monitor next --wrap-around' 
 ]
@@ -115,10 +115,10 @@ backspace = ['close-all-windows-but-current', 'mode main']
 [mode.resize.binding]
 keypadMinus = 'resize smart -70'
 keypadPlus = 'resize smart +70'
-h = ['resize width -64']
+l = ['resize width -64']
 j = ['resize height -64']
 k = ['resize height +64']
-l = ['resize width +64']
+h = ['resize width +64']
 esc = [
 'mode main',
 ]
@@ -138,7 +138,7 @@ esc = [
 ]
 enter = [
   'mode main',
-]
+] 
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
@@ -146,6 +146,10 @@ run = ['layout tiling', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = '13960' 
 run = ['layout tiling', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
@@ -164,9 +168,9 @@ run = ['move-node-to-workspace 9']
 
 [gaps]
 #outer.bottom numbers have to match presentation.sh variables. built-in retina display is excluded from presentation mode, so this only works on external monitors.
-outer.bottom =     4
-outer.top =        4
-outer.left =       4
-outer.right =      4
-inner.horizontal = 4
-inner.vertical =   4
+outer.bottom =     3
+outer.top =        3
+outer.left =       3
+outer.right =      3
+inner.horizontal = 3
+inner.vertical =   3
