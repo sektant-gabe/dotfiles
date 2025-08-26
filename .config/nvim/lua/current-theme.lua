@@ -1,1 +1,1 @@
-vim.cmd("colorscheme nvimgelion")
+vim.cmd("colorscheme doom-one")

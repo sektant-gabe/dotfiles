@@ -19,10 +19,10 @@ vim.g.have_nerd_font = true
 -- ---------------------------------------------------------------------------
 -- Cursor appearance (GUI/terminal may vary)
 vim.o.guicursor = 'n-v-c-i:block'
-
+vim.opt.termguicolors = true
 -- Working directory behavior
 -- NOTE: this was toggled in the original file (true then later false). Left as-is.
-vim.o.autochdir = true
+vim.o.autochdir = false
 
 -- ---------------------------------------------------------------------------
 -- General options (user-visible behavior and editing defaults)
@@ -34,12 +34,9 @@ vim.o.relativenumber = true
 
 -- Hide mode (it's usually shown in a statusline)
 vim.o.showmode = false
-
 -- Whitespace / tab behavior
 vim.o.copyindent = true
 vim.o.textwidth = 100
--- The original file later sets autochdir = false and filetype/tab options; preserved.
-vim.o.autochdir = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -69,7 +66,7 @@ vim.o.signcolumn = 'yes'
 vim.o.updatetime = 250 -- affects CursorHold, diagnostics, etc.
 vim.o.timeoutlen = 300 -- mapped sequence wait time
 vim.o.cursorline = false
-vim.o.scrolloff = 10
+vim.o.scrolloff = 5
 vim.o.confirm = true
 
 -- Display whitespace and listchars
@@ -86,14 +83,12 @@ vim.opt.redrawtime = 10000
 vim.opt.maxmempattern = 20000
 vim.o.splitright = true
 vim.o.splitbelow = true
-
 -- ---------------------------------------------------------------------------
 -- Minimal remaps and keymaps (basic helpers)
 -- ---------------------------------------------------------------------------
 -- require('custom.mapping')
 -- Greatest remap EVEEER
 vim.keymap.set('x', '<leader>p', [["_dP]])
-
 -- Yank to end of line with 'Y' like other operators
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank to end of line' })
 
@@ -138,27 +133,29 @@ vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
 
 -- Move lines up/down
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move View down' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move View up' })
+
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'Move line down' })
 vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'Move line up' })
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 
 -- Buffer navigation
-vim.keymap.set('n', '<leader><Tab>', ':bnext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<leader>S<Tab>', ':bprevious<CR>', { desc = 'Previous buffer' })
+-- vim.keymap.set('n', '<leader><Tab>', ':bnext<CR>', { desc = 'Next buffer' })
 
 -- Better 'J' join: keep cursor position
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
 
 -- Misc mappings: quick insert-mode exits and terminal exits
-vim.keymap.set('i', 'jj', '<Esc>', { silent = true, desc = 'exit insert mode' })
-vim.keymap.set('t', 'jj', '<C-\\><C-n>', { silent = true, desc = 'exit terminal' })
-vim.keymap.set('c', 'jj', '<Esc>', { silent = true, desc = 'exit command-line' })
+vim.keymap.set('i', 'jk', '<Esc>', { silent = true, desc = 'exit insert mode' })
+vim.keymap.set('t', 'jk', '<C-\\><C-n>', { silent = true, desc = 'exit terminal' })
+vim.keymap.set('c', 'jk', '<Esc>', { silent = true, desc = 'exit command-line' })
 
 -- Small editor shortcuts: start/end of line mappings (note: duplicated in original file, preserved)
 vim.keymap.set('n', 'H', '^', { silent = true, desc = 'start of line' })
-vim.keymap.set('n', 'H', '^', { silent = true, desc = 'start of line' })
-vim.keymap.set('v', 'L', '$', { silent = true, desc = 'end of line' })
+vim.keymap.set('n', 'L', '$', { silent = true, desc = 'end of line' })
+vim.keymap.set('v', 'H', '^', { silent = true, desc = 'start of line' })
 vim.keymap.set('v', 'L', '$', { silent = true, desc = 'end of line' })
 
 -- ---------------------------------------------------------------------------
@@ -186,6 +183,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+-- ---------------------------------------------------------------------------
+-- base46 Themes setup
+-- ---------------------------------------------------------------------------
+vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'
+
+-- put this after lazy setup
 
 -- ---------------------------------------------------------------------------
 -- Plugin manager: lazy.nvim installation check and runtimepath prepending
@@ -227,12 +230,10 @@ require('lazy').setup({
     opts = {
       colors = {
         bg = '#282c34',
-        fg = '#bbc2cf',
         copy = '#98be65',
-        normal = '#52afef',
-        delete = '#ff6c6b',
-        insert = '#da8548',
-        visual = '#c678dd',
+        delete = '#ff0000',
+        insert = '#00ff00',
+        visual = '#ff00ff',
       },
       line_opacity = 0,
       set_cursor = true,
@@ -242,14 +243,13 @@ require('lazy').setup({
       ignore = { 'NvimTree', 'TelescopePrompt', '!minifiles' },
     },
   },
-
+  --
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     lazy = false,
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
-
   {
     'folke/which-key.nvim',
     event = 'VimEnter',
@@ -257,7 +257,7 @@ require('lazy').setup({
       delay = 0,
       icons = {
         mappings = vim.g.have_nerd_font,
-        keys = vim.g.have_nerd_font and {} or {
+        keys = {
           Up = '<Up> ',
           Down = '<Down> ',
           Left = '<Left> ',
@@ -290,11 +290,11 @@ require('lazy').setup({
       },
 
       spec = {
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>c', group = '[C]make' },
-        { '<leader>d', group = '[D]ebug' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>s', group = 'Search' },
+        { '<leader>c', group = 'CMake' },
+        { '<leader>d', group = 'Debug' },
+        { '<leader>t', group = 'Toggle' },
+        { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
       },
     },
   },
@@ -330,8 +330,6 @@ require('lazy').setup({
       pcall(require('telescope').load_extension, 'ui-select')
 
       -- Splitting & Resizing (also present earlier; preserved)
-      vim.keymap.set('n', '<leader>Sv', ':vsplit<CR>', { desc = '[S]plit window [v]ertically' })
-      vim.keymap.set('n', '<leader>Sh', ':split<CR>', { desc = '[S]plit window [h]orizontally' })
       vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { desc = 'Increase window height' })
       vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { desc = 'Decrease window height' })
       vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Decrease window width' })
@@ -355,17 +353,17 @@ require('lazy').setup({
       vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
 
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Find existing buffers' })
-      vim.keymap.set('n', '<leader>st', ':Telescope themes<CR>', { noremap = true, silent = true, desc = '[S]earch [T]heme' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Help' })
+      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Keymaps' })
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Files' })
+      vim.keymap.set('n', '<leader>sb', builtin.builtin, { desc = 'Select Telescope' })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Current word' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Grep' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = 'Diagnostics' })
+      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = 'Resume' })
+      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = 'Recent Files' })
+      vim.keymap.set('n', '<leader>ss', builtin.buffers, { desc = 'Find existing buffers' })
+      vim.keymap.set('n', '<leader>st', ':Telescope themes<CR>', { noremap = true, silent = true, desc = 'Theme' })
 
       -- current buffer fuzzy find using dropdown theme
       vim.keymap.set('n', '<leader>/', function()
@@ -373,7 +371,7 @@ require('lazy').setup({
           winblend = 10,
           previewer = true,
         })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, { desc = 'Fuzzily search in current buffer' })
 
       -- live grep open files only
       vim.keymap.set('n', '<leader>s/', function()
@@ -381,12 +379,12 @@ require('lazy').setup({
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, { desc = 'Search in open Files' })
 
       -- find in Neovim config
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      end, { desc = 'Search vim files' })
     end,
   },
 
@@ -400,7 +398,6 @@ require('lazy').setup({
       },
     },
   },
-  { 'mg979/vim-visual-multi' },
   { 'honza/vim-snippets' },
   {
     'Civitasv/cmake-tools.nvim',
@@ -428,15 +425,15 @@ require('lazy').setup({
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
-          map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-          map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('grn', vim.lsp.buf.rename, 'Rename')
+          map('gra', vim.lsp.buf.code_action, 'Goto Code Action', { 'n', 'x' })
+          map('grr', require('telescope.builtin').lsp_references, 'Goto References')
+          map('gri', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
+          map('grd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
+          map('grD', vim.lsp.buf.declaration, 'Goto Declaration')
           map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
           map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
-          map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+          map('grt', require('telescope.builtin').lsp_type_definitions, 'Goto Type Definition')
 
           local function client_supports_method(client, method, bufnr)
             if vim.fn.has 'nvim-0.11' == 1 then
@@ -471,7 +468,7 @@ require('lazy').setup({
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, 'Toggle inlay hints')
           end
         end,
       })
@@ -543,7 +540,6 @@ require('lazy').setup({
     end,
   },
 
-  { 'echasnovski/mini.tabline', version = false },
   {
     'Zeioth/compiler.nvim',
     cmd = { 'CompilerOpen', 'CompilerToggleResults', 'CompilerRedo' },
@@ -564,7 +560,15 @@ require('lazy').setup({
     },
   },
   { 'ThePrimeagen/vim-be-good' },
+  'nvim-lua/plenary.nvim',
+  { 'nvim-tree/nvim-web-devicons', lazy = true },
 
+  {
+    'eldritch-theme/eldritch.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
   {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
@@ -650,7 +654,18 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
+  {
+    'rmagatti/auto-session',
+    lazy = false,
 
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '~/', '~/projects', '~/Downloads', '/', '~/.config' },
+      -- log_level = 'debug',
+    },
+  },
   -- Color schemes and theme plugins
   { 'EdenEast/nightfox.nvim' },
   { 'projekt0n/github-nvim-theme' },
@@ -660,21 +675,39 @@ require('lazy').setup({
   { 'nyngwang/nvimgelion' },
   { 'cwshugg/dwarrowdelf' },
   -- { 'sektant-gabe/dwarrowdelf.nvim' },
-
+  { 'miikanissi/modus-themes.nvim', priority = 1000 },
   {
     'NTBBloodbath/doom-one.nvim',
     config = function()
+      -- Add color to cursor
+      vim.g.doom_one_cursor_coloring = true
+      -- Set :terminal colors
       vim.g.doom_one_terminal_colors = true
+      -- Enable italic comments
       vim.g.doom_one_italic_comments = false
+      -- Enable TS support
       vim.g.doom_one_enable_treesitter = true
-      vim.g.doom_one_plugin_telescope = true
+      -- Color whole diagnostic text or only underline
+      vim.g.doom_one_diagnostics_text_color = true
+      -- Enable transparent background
+      vim.g.doom_one_transparent_background = true
+
+      -- Pumblend transparency
+      vim.g.doom_one_pumblend_enable = true
+      vim.g.doom_one_pumblend_transparency = 20
+
+      -- Plugins integration
+      vim.g.doom_one_plugin_neorg = true
+      vim.g.doom_one_plugin_barbar = false
+      vim.g.doom_one_plugin_telescope = false
       vim.g.doom_one_plugin_neogit = true
       vim.g.doom_one_plugin_nvim_tree = true
+      vim.g.doom_one_plugin_dashboard = true
+      vim.g.doom_one_plugin_startify = true
       vim.g.doom_one_plugin_whichkey = true
+      vim.g.doom_one_plugin_indent_blankline = true
       vim.g.doom_one_plugin_vim_illuminate = true
-      vim.g.doom_one_plugin_lspsaga = true
-      vim.g.doom_one_transparent_background = true
-      vim.cmd.colorscheme 'doom-one'
+      vim.g.doom_one_plugin_lspsaga = false
     end,
   },
 
@@ -707,12 +740,12 @@ require('lazy').setup({
       indent = { enable = true },
     },
   },
-
   -- Kickstart plugin helpers
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns',
+
   { import = 'custom.plugins' },
 }, {
   ui = {
@@ -733,13 +766,13 @@ require('lazy').setup({
     },
   },
 })
-
+vim.cmd 'colorscheme doom-one'
 -- ---------------------------------------------------------------------------
 -- UI tweaks: transparent background for Normal/EndOfBuffer
 -- ---------------------------------------------------------------------------
--- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
--- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
--- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
 --
 -- ---------------------------------------------------------------------------
 -- User autocommands (filetype-specific settings, cursor restore, term behavior)
@@ -899,11 +932,38 @@ local function CloseFloatingTerminal()
   end
 end
 
--- Key mappings for floating terminal
-vim.keymap.set('n', 'tt', FloatingTerminal, { noremap = true, silent = true, desc = 'Toggle floating terminal' })
+-- Key mappings for floating tertrue
+vim.keymap.set('n', '<Leader>tt', FloatingTerminal, { noremap = true, silent = true, desc = 'Toggle floating terminal' })
 vim.keymap.set('t', '<Esc>', function()
   if terminal_state.is_open then
     vim.api.nvim_win_close(terminal_state.win, false)
     terminal_state.is_open = false
   end
 end, { noremap = true, silent = true, desc = 'Close floating terminal from terminal mode' })
+
+local harpoon = require 'harpoon'
+harpoon:setup()
+
+vim.keymap.set('n', '<leader>a', function()
+  harpoon:list():add()
+end, { noremap = true, silent = true, desc = 'Harpoon tf out this file' })
+vim.keymap.set('n', '<leader><leader>', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { noremap = true, silent = true, desc = 'Harpoon Quick List' })
+
+vim.keymap.set('n', '<leader>1', function()
+  harpoon:list():select(1)
+end, { noremap = true, silent = true, desc = 'Harpoon: 1' })
+vim.keymap.set('n', '<leader>2', function()
+  harpoon:list():select(2)
+end, { noremap = true, silent = true, desc = 'Harpoon: 2' })
+vim.keymap.set('n', '<leader>3', function()
+  harpoon:list():select(3)
+end, { noremap = true, silent = true, desc = 'Harpoon: 3' })
+vim.keymap.set('n', '<leader>4', function()
+  harpoon:list():select(4)
+end, { noremap = true, silent = true, desc = 'Harpoon: 4' })
+
+vim.keymap.set('n', '<leader><tab>', function()
+  harpoon:list():next()
+end, { noremap = true, silent = true, desc = 'Next File Harpooned' })
