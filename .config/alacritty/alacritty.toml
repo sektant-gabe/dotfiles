@@ -1,26 +1,44 @@
 [env]
-TERM = "xterm-256color"
-EDITOR = "vim"
+#TERM = "xterm-256color"
+EDITOR = "nvim"
 
 [window]
-opacity = 0.78
+opacity = 0.90
 decorations = "None"
 option_as_alt = "Both"
-blur = false
+blur = true
 
 [font]
-size = 16.0
-normal = { family = "DankMono Nerd Font Mono", style = "Regular" }
+size = 14.0
+normal = { family = "SauceCodePro Nerd Font", style = "Medium"}
 
 [window.padding]
 x = 4
 y = 4
 
+# [colors.primary]
+# background = '#000000'
+
+# Colors (Doom One)
+
+# Default colors
 [colors.primary]
-background = '#000000'
+background = '#282c34'
 foreground = '#bbc2cf'
+
+# Normal colors
+[colors.normal]
+black   = '#282c34'
+red     = '#ff6c6b'
+green   = '#98be65'
+yellow  = '#ecbe7b'
+blue    = '#51afef'
+magenta = '#c678dd'
+cyan    = '#46d9ff'
+white   = '#bbc2cf'
 
 [colors.cursor]
 text = '#000000'
-cursor = '#00FFFF'
+cursor = '#51afef'
+
 

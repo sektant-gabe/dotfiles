@@ -14,10 +14,10 @@ export NVIM_APPNAME="nvim"
 export EDITOR="hx"
 
 eval "$(starship init zsh)"
-alias vim="bob run nightly"
+#alias vim="bob run nightly"
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim-cpp='NVIM_APPNAME="nvim-cpp" nvim'
-alias nvim="bob run nightly"
+#alias nvim="bob run nightly"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 
