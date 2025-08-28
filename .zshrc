@@ -9,6 +9,7 @@ alias ls='eza -lh --group-directories-first --icons --hyperlink'
 alias lsa='ls -a'
 alias lt='eza --tree --level=2 --long --icons --git'
 alias lta='lt -a'
+alias wiki='vim ~/vimwiki/'
 
 export NVIM_APPNAME="nvim"
 export EDITOR="hx"

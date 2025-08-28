@@ -11,7 +11,7 @@ call vundle#begin()
 
 " Set VimWiki to Markdown
 let g:vimwiki_ext2syntax = {'.md': 'markdown'}
-let g:vimwiki_list = [{'path': '~/ecjcp-fnraf/', 
+let g:vimwiki_list = [{'path': '~/vimwiki/', 
             \ 'auto_diary_index': 1,
             \ 'auto_generate_links': 1,
             \ 'syntax': 'markdown',
@@ -28,19 +28,17 @@ Plugin 'aklt/plantuml-syntax'
 Plugin 'weirongxu/plantuml-previewer.vim'
 Plugin 'jclsn/glow.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'junegunn/fzf'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'sainnhe/everforest'
 Plugin 'chazmcgarvey/vim-mermaid'
 Plugin 'mcchrish/nnn.vim'
 Plugin 'lervag/vimtex'
 Plugin 'ionide/Ionide-vim'
 Plugin 'tikhomirov/vim-glsl'
+Plugin 'p0209p/naysayer.vim'
 Plugin 'dylon/vim-antlr'
 Plugin 'mbbill/undotree'
-Plugin 'puremourning/vimspector'
+"Plugin 'puremourning/vimspector'
 Plugin 'ap/vim-css-color'
 
 " Vimspector keybindings 
@@ -68,13 +66,8 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 set number
 
-set background=dark
 
-let g:everforest_background = 'hard'
-let g:everforest_better_performance = 1
-let g:everforest_transparent_background = 1
-
-colorscheme everforest
+colorscheme naysayer
 
 " Allow odt editing in vim
 autocmd BufReadPost *.odt :%!odt2txt %

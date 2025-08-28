@@ -1,44 +1,102 @@
-[env]
-#TERM = "xterm-256color"
-EDITOR = "nvim"
-
+## WINDOW ---------------------------------------------------------
 [window]
-opacity = 0.90
+position = "None"
+dynamic_padding = false
 decorations = "None"
-option_as_alt = "Both"
-blur = true
+opacity = 0.94
+blur = false
+startup_mode = "Windowed"
+dynamic_title = true
+class = { instance = "Alacritty", general = "Alacritty" }
+decorations_theme_variant = "None"
 
-[font]
-size = 14.0
-normal = { family = "SauceCodePro Nerd Font", style = "Medium"}
+## Number of lines/columns (not pixels) in the terminal.
+[window.dimensions]
+columns = 95
+lines = 24
 
+## Blank space added around the window in pixels.
 [window.padding]
 x = 4
 y = 4
 
-# [colors.primary]
-# background = '#000000'
+## SCROLLING ------------------------------------------------------
+[scrolling]
+history = 10000
+multiplier = 3
 
-# Colors (Doom One)
+[[hints.enabled]]
+regex = "[^ ]+\\.rs:\\d+:\\d+"
+command = { program = "code", args = [ "--goto" ] }
+mouse = { enabled = true }
+## Font configuration ---------------------------------------
 
-# Default colors
+[font]
+## Font size in points.
+size = 16
+
+## When true, Alacritty will use a custom built-in font for box drawing characters and powerline symbols.
+builtin_box_drawing = false
+
+## Normal font family.
+[font.normal]
+family = "FiraMono Nerd Font Mono"
+style = "Regular"
+
+## If the family is not specified, it will fall back to the value specified for the normal font.
+[font.bold]
+family = "FiraMono Nerd Font Mono"
+
+## If the family is not specified, it will fall back to the value specified for the normal font.
+[font.italic]
+family = "FiraMono Nerd Font Mono"
+
+## If the family is not specified, it will fall back to the value specified for the normal font.
+[font.bold_italic]
+family = "FiraMono Nerd Font Mono"
+
+## Offset is the extra space around each character.
+## 'y' can be thought of as modifying the line spacing, and 'x' as modifying the letter spacing.
+[font.offset]
+x = 0
+y = 0
+
+## Glyph offset determines the locations of the glyphs within their cells with the default being at the bottom.
+## Increasing 'x' moves the glyph to the right, increasing 'y' moves the glyph upward.
+[font.glyph_offset]
+x = 0
+y = 0
+
+## CURSOR ---------------------------------------------------------
+[cursor]
+vi_mode_style = "Block"
+blink_interval = 450
+blink_timeout = 0
+unfocused_hollow = true
+thickness = 0.15
+
+[cursor.style]
+shape = "Block"
+blinking = "On"
+
+## MOUSE ----------------------------------------------------------
+[mouse]
+hide_when_typing = true
+
 [colors.primary]
-background = '#282c34'
-foreground = '#bbc2cf'
-
-# Normal colors
-[colors.normal]
-black   = '#282c34'
-red     = '#ff6c6b'
-green   = '#98be65'
-yellow  = '#ecbe7b'
-blue    = '#51afef'
-magenta = '#c678dd'
-cyan    = '#46d9ff'
-white   = '#bbc2cf'
+background = '0x042327'
+foreground = '0xffffff'
 
 [colors.cursor]
 text = '#000000'
-cursor = '#51afef'
+cursor = '#86E08F'
 
-
+## DEBUG ----------------------------------------------------------
+[debug]
+render_timer = false
+persistent_logging = false
+log_level = "Warn"
+renderer = "None"
+print_events = false
+highlight_damage = false
+prefer_egl = false
